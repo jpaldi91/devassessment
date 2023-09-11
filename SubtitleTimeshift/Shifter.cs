@@ -18,8 +18,10 @@ namespace SubtitleTimeshift
             {
                 string[] interval = reader.ReadLine().Split(" --> ", 2);
                 List<string> textLines = new List<string>();
-                string text = reader.ReadLine();
-                while (!string.IsNullOrWhiteSpace(text))
+                string text = reader.ReadLine(); //reads the first line for the current subtitle, even if it's empty
+                textLines.Add(text);
+                text = reader.ReadLine();
+                while (!string.IsNullOrWhiteSpace(text)) //reads non empty lines for the current subtitle
                 {
                     textLines.Add(text);
                     text = reader.ReadLine();
@@ -30,6 +32,7 @@ namespace SubtitleTimeshift
                 TimeSpan end = TimeSpan.Parse(endString) + timeSpan;
                 Subtitle subtitle = new Subtitle(lineNumber, start, end, textLines);
                 writer.Write(subtitle.ToString());
+                await writer.FlushAsync();
             }
         }
     }

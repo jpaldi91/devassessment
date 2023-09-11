@@ -27,8 +27,8 @@ public class Subtitle
     lines.Add(LineNumber.ToString());
     lines.Add($"{startString} --> {endString}");
     lines.AddRange(Text);
-    lines.Add(System.Environment.NewLine);
+    lines.Add(Environment.NewLine);
 
-    return string.Join(System.Environment.NewLine, lines);
+    return string.Join(Environment.NewLine, lines);
   }
 }
